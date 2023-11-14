@@ -1,6 +1,6 @@
 # LakeAdventure
 AGT files for LAKE Adventure, entered in IFComp '23
 
-These files are provided for those interested in seeing how a modern-day game written in AGT might look.  I did the coding in VS Code, frequently using DOSBox to compile and verify the latest changes.  LAKE.AGT contains the primary source code.  Ancillary files are also provided if they altered some prewritten AGT behavior; LAKE.STD is the most important, as it changes a few default responses into something slightly more helpful.  LAKE.PCX is the title image displayed at the beginning of the game when running it in DOS.
+These files are provided for those interested in seeing the code for a modern-day game written in AGT (Adventure Game Toolkit).  I did the coding in VS Code, frequently using DOSBox to compile and verify the latest changes.  LAKE.AGT contains the primary source code.  Ancillary files are also provided if they altered some prewritten AGT behavior; LAKE.STD is the most important, as it changes a few default responses into something slightly more helpful.  LAKE.PCX is the title image displayed at the beginning of the game when running it in DOS.
 
-These files must be compiled to get a playable version of the game.  For use in a modern IF interpreter, AGT file must be transformed to an AGX file via the AGT2AGX.EXE utility.
+These files must be compiled to get a playable version of the game.  For use in a modern IF interpreter (Gargoyle, Spatterlight, or AGiliTy), AGT file must be transformed to an AGX file via the AGT2AGX.EXE utility.
