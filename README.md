@@ -5,4 +5,4 @@ These files are provided for those interested in seeing the code for a modern-da
 
 LAKE.AGT contains the primary source code.  Ancillary files are also provided if they altered some prewritten AGT behavior; LAKE.STD is the most important, as it changes a few default responses into something slightly more helpful.  LAKE.PCX is the title image displayed at the beginning of the game when running it in DOS.
 
-These files must be compiled to get a playable version of the game.  For use in a modern IF interpreter (Gargoyle, Spatterlight, or AGiliTy), AGT file must be transformed to an AGX file via the AGT2AGX.EXE utility.
+These files must be compiled to get a playable version of the game.  For use in a modern IF interpreter (Gargoyle, Spatterlight, or AGiliTy), the .AGT file must be transformed to an .AGX file via the AGT2AGX.EXE utility.
