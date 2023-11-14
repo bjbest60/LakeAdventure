@@ -1,0 +1,1481 @@
+! <--- Note that any line that begins with a ! mark is a comment.
+
+! There are exactly 185 standard messages numbered STANDARD 1 to STANDARD 185
+! in the lines that follow. You may edit these messages as you see fit.
+! However, you must keep them in the same order and you must keep their meaning
+! consistent with the current meaning. For example, STANDARD 38 is a standard
+! message that will be printed whenever the player tries to WEAR something that
+! weights over 100 pounds. Feel free to change this message in any way you
+! wish -- but, however you change STANDARD 38 -- it will still be be printed
+! if and only if the player tries to WEAR a noun weighting over 100 pounds.
+
+! Throughout the messages that follow there are several "string variables,"
+! that may be used freely in messages -- specifically:
+
+!  $verb$ is the current VERB
+!  $noun$ is the current NOUN
+!  $prep$ is the current PREPOSITION
+!  $object$ is the current OBJECT
+!  $adjective$ is the current NOUN's adjective
+!  $n_pro$ is the NOUN's pronoun, i.e., "it" "they" "he" or "she"
+!  $o_pro$ is the OBJECT's pronoun, i.e., "it" "they" "he" or "she"
+!  $n_indir$ is the NOUN's indirect pronoun, i.e., "it" "them" "him" or "her"
+!  $o_indir$ is the OBJECT's indirect pronoun, i.e., "it" "them" "him" or "her"
+!  $n_is$ is either "is" or "are" based upon NOUN being singular or plural
+!  $o_is$ is either "is" or "are" based upon OBJECT being singular or plural
+!  $c_name$ is the NAME of the HOSTILE creature that is attacking the player
+
+! Any of the above string variables can be capitalized by making the
+! appropriate letters between the $'s upper case. For example $Noun$ will
+! capitalize the first letter of the NOUN's name, or $OBJECT$ will display
+! the OBJECT's name in all caps.
+
+!==============================================================================
+! First let's define a bunch of "standard" messages that are used in multiple
+! places in the RUN program.
+!==============================================================================
+
+! "Default" PROMPT
+! This message MUST end with ? mark
+! A space will be added to end of "prompt" string i.e., "What Now? "
+! This message should be short and limited to a few words only!
+STANDARD 1
+>?
+END_STANDARD
+
+! Default HELP message
+STANDARD 2
+Sorry, you're on your own here.
+END_STANDARD
+
+! Check if NOUN and OBJECT are here and give error message if not here
+
+! Message given if NOUN is NOT visible or present at current location
+STANDARD 3
+I don't understand $NOUN$ as a noun here.
+END_STANDARD
+
+! Message given if OBJECT is NOT visible or present at current location
+STANDARD 4
+I don't understand $OBJECT$ as an object here.
+END_STANDARD
+
+! This message is given when the player tries to VERB ALL
+! and it is inappropriate to try to VERB more than one thing at a time
+STANDARD 5
+Not everything at once! Pick one thing at a time!
+END_STANDARD
+
+! Messages about being in the DARK
+
+! Following message is given when the player isn't carrying any light at all
+STANDARD 6
+It is pitch black. You can see nothing, not even your hands.
+END_STANDARD
+
+! OR this message is given when the player may be carrying a light but still
+! can't see -- e.g., probably because the light isn't turned on.
+STANDARD 7
+For some reason, you can't see anything here.
+END_STANDARD
+
+! Default GET message if it possible to get it, i.e., GET "success" message
+STANDARD 8
+Taken.
+END_STANDARD
+
+! DROP messages
+! Also used for TAKE OFF or REMOVE worn nouns, e.g., drop axe or take off hat
+
+! This is the "default" message given when the player DROPs something
+! that he/she is wearing or carrying, i.e., DROP "success" message
+! Note: $verb$ may be either "DROP" or "REMOVE" or "TAKE OFF"
+STANDARD 9
+You $verb$ the $adjective$ $noun$.
+END_STANDARD
+
+! Default VERB something and when it isn't VERBable
+! e.g., Player tries to TURN something that is not TURNable
+! or to WEAR something that can not be worn
+STANDARD 10
+Sorry, but it is impossible to $verb$ the $noun$.
+END_STANDARD
+
+! Default "error" message when trying to do something to the NOUN
+! which is a creature which will not allow it
+STANDARD 11
+Sorry, but the $noun$ won't let you.
+END_STANDARD
+
+! Default "error" message when trying to do something to the OBJECT
+! which is a creature which will not allow it
+STANDARD 12
+Sorry, but the $object$ won't let you.
+END_STANDARD
+
+! direction
+! i.e., NORTH, SOUTH, etc.
+! was "You can't go $verb$ from here!" -- problem with gargoyle
+
+! Direction "error" message -- if there is not valid exit in that direction
+STANDARD 13
+You can't go that way from here!
+END_STANDARD
+
+!==============================================================================
+! "ANY" messages
+!==============================================================================
+
+! This section contains all creature-specific activity, such as when a
+! HOSTILE creature begins to get angry and then attacks the player.
+
+! Direction "error" message -- if there is a HOSTILE creature block exits
+STANDARD 14
+The $c_name$ blocks your way and will not let you leave!
+END_STANDARD
+
+! This message is given BEFORE the "creature" attacks.
+STANDARD 15
+
+The $c_name$ seems to be getting angrier!
+END_STANDARD
+
+! This message is given when the "creature" attacks.
+STANDARD 16
+
+The $c_name$ seems to calm down for a moment, but suddenly attacks.
+END_STANDARD
+
+! Followed by this message if the creature is a "Thing"
+STANDARD 17
+Its mouth opens to reveal teeth grotesquely out of proportion to the rest of
+its body, a fact you notice as those same teeth tear your flesh into tiny
+pieces.
+END_STANDARD
+
+! OR followed by this message if the creature is a "Man" or "Woman"
+STANDARD 18
+Hands suddenly grasp our throat and begin to squeeze and squeeze and squeeze!!
+You fight for breath, but the struggle is in vain.
+END_STANDARD
+
+
+!==============================================================================
+! DESCRIBE or EXAMINE messages
+!==============================================================================
+
+! Messages when player tries to EXAMINE something in the DARK
+
+! Following message is when the player isn't carrying any light at all
+STANDARD 19
+It is pitch black. You can see nothing, not even your hands.
+END_STANDARD
+
+! OR this message is given when the player may be carrying a light but still
+! can't see -- e.g., probably because the light isn't turned on.
+STANDARD 20
+For some reason, you can't see or examine anything here.
+END_STANDARD
+
+! This message is given when the player tries to EXAMINE DOOR
+! and the door is LOCKED
+STANDARD 21
+It looks like a solid, locked door.
+END_STANDARD
+
+! OR this message is given when the player tries to EXAMINE DOOR
+! and the door is NOT LOCKED
+STANDARD 22
+The doors here all look pretty much like doors.
+END_STANDARD
+
+!==============================================================================
+! LIST EXITS messages
+!==============================================================================
+
+! Message given when player tries to LIST EXITS and it is dark.
+STANDARD 23
+It is too dark to see any exits!
+END_STANDARD
+
+!==============================================================================
+! GET or TAKE messages
+!==============================================================================
+
+! GET ALL "error" message -- if there is nothing to TAKE
+STANDARD 24
+There is nothing here that can be taken!
+END_STANDARD
+
+! Default GET DOOR -- if locked DOOR in room
+STANDARD 25
+The door won't budge.
+END_STANDARD
+
+! Default GET DOOR -- if no locked DOOR in room
+STANDARD 26
+The doorway won't budge.
+END_STANDARD
+
+! Default GET something and the player already has it
+! WAS: You already have the $adjective$ $noun$! -BB
+STANDARD 27
+You already have the $noun$!
+END_STANDARD
+
+! Default GET something and it isn't present at location
+STANDARD 28
+Sorry, but there $n_is$ no $noun$ here to $verb$.
+END_STANDARD
+
+! Default GET something and it isn't movable, i.e., it can not be gotten.
+STANDARD 29
+Sorry, but it is impossible to $verb$ the $noun$.
+END_STANDARD
+
+! Default GET message if the NOUN's weight exceeds 100 pounds
+STANDARD 30
+It is too heavy! You aren't strong enough to carry the $noun$!
+END_STANDARD
+
+! Default GET message if it would cause player's "load" to exceed 100 pounds
+STANDARD 31
+You aren't strong enough to carry your current load plus the $noun$.
+END_STANDARD
+
+! Default GET message if NOUNs "size" exceeds 100 "units"
+STANDARD 32
+The $noun$ $n_is$ far too bulky to carry.
+END_STANDARD
+
+! Default GET message if it would cause player's "size" to exceed 100 "units"
+STANDARD 33
+Your load would be far too bulky to manage if you took the $noun$.
+END_STANDARD
+
+! Default GET messages if player trying to get CREATURE -- which is not allowed
+! Trying to GET CREATURE when it is HOSTILE
+! $n_pro$ will be the NOUNs pronoun -- either "he", "she" or "it".
+STANDARD 34
+As you reach out to take the $noun$, $n_pro$ snarls at you. $N_pro$ doesn't
+seem to want to cooperate.
+END_STANDARD
+
+! Default GET messages if player trying to get CREATURE -- which is not allowed
+! Trying to GET CREATURE when it is NOT HOSTILE
+! $n_pro$ will be the NOUNs pronoun -- either "he", "she" or "it".
+! $n_indir$ will be the NOUN's indirect pronoun -- either "him", "her" or "it".
+STANDARD 35
+As you reach for $n_indir$, the $noun$ seems happy to be touched, but as
+soon as $n_pro$ realizes that you want to take $n_indir$, $n_pro$ slips
+from your grasp.
+END_STANDARD
+
+!==============================================================================
+! WEAR or PUT ON messages
+!==============================================================================
+
+! WEAR ALL "error" message -- if there is nothing to WEAR
+STANDARD 36
+There is nothing here that can be worn!
+END_STANDARD
+
+! Default WEAR something and the player already has it on
+STANDARD 37
+You are already wearing the $adjective$ $noun$!
+END_STANDARD
+
+! Default WEAR message if the NOUN's weight exceeds 100 pounds
+STANDARD 38
+It's too heavy! You aren't strong enough to carry or wear the $noun$!
+END_STANDARD
+
+! Default WEAR message if it would cause player's "load" to exceed 100 pounds
+STANDARD 39
+You aren't strong enough to carry your current load plus the $noun$.
+END_STANDARD
+
+! Default WEAR message if NOUN's "size" exceeds 100 "units"
+STANDARD 40
+The $noun$ $n_is$ far too bulky to carry or wear.
+END_STANDARD
+
+! Default WEAR message if it would cause player's "size" to exceed 100 "units"
+STANDARD 41
+Your load would be far too bulky to manage if you wore the $noun$.
+END_STANDARD
+
+! Default WEAR message if it possible to WEAR it, i.e., success
+STANDARD 42
+You are now wearing the $adjective$ $noun$.
+END_STANDARD
+
+! Default WEAR messages if player trying to WEAR CREATURE -- which is not allowed
+! Trying to WEAR CREATURE when it is HOSTILE
+! $n_pro$ will be the NOUNs pronoun -- either "he", "she" or "it".
+STANDARD 43
+As you reach out to take the $noun$, $n_pro$ snarls at you. $N_pro$ doesn't
+seem to want to cooperate.
+END_STANDARD
+
+! Default WEAR messages if player trying to WEAR CREATURE -- which is not allowed
+! Trying to WEAR CREATURE when it is NOT HOSTILE
+! $n_pro$ will be the NOUNs pronoun -- either "he", "she" or "it".
+! $n_indir$ will be the NOUN's indirect pronoun -- either "him", "her" or "it".
+STANDARD 44
+As you reach for $n_indir$, the $noun$ seems happy to be touched, but as
+soon as $n_pro$ realizes that you want to take $n_indir$, $n_pro$ slips
+from your grasp.
+END_STANDARD
+
+
+!==============================================================================
+! DROP, TAKE OFF or REMOVE messages
+!==============================================================================
+
+! e.g., drop axe or take off hat
+
+! DROP ALL "error" message -- if there is nothing to DROP
+STANDARD 45
+You aren't carrying anything!
+END_STANDARD
+
+! REMOVE ALL "error" message -- if there is nothing to REMOVE
+STANDARD 46
+You aren't wearing anything!
+END_STANDARD
+
+! This message is given when the player tries to DROP something
+! that he/she isn't wearing or carrying, i.e., DROP "error" message
+STANDARD 47
+You don't seem to have the $adjective$ $noun$.
+END_STANDARD
+
+!==============================================================================
+! THROW messages
+!==============================================================================
+
+! Throw (something) (at|to|in|into|inside|across) (something)
+! e.g., throw coin to troll or throw water at door or throw coin into fountain
+
+! THROW "error" message for THROW NOUN PREP OBJECT when not a valid PREP
+STANDARD 48
+I don't understand what you mean.
+END_STANDARD
+
+! The next few messages are used when throwing something at a HOSTILE creature
+
+! Default THROW NOUN PREP OBJECT when OBJECT is a hostile creature
+! and NOUN being throw is the WEAPON that kills the creature
+! Notes: (1) Creature will be killed and will disappear. The message MUST
+!      explain this disappearance some how.
+!    (2) $o_pro$ is the object's direct pronoun, i.e., "he", "she" or"it"
+STANDARD 49
+The $noun$ soars through the air toward the $object$. It's a direct hit!
+The $object$ screeches angrily and writhes in agony as $o_pro$ fades away
+in a cloud of green smoke.
+END_STANDARD
+
+! Default THROW NOUN PREP OBJECT when OBJECT is a hostile creature
+! and NOUN being throw is NOT the WEAPON that kills the creature
+! Notes: (1) Creature will NOT be killed and will NOT disappear.
+STANDARD 50
+The $noun$ soars through the air. It's a direct hit!
+END_STANDARD
+
+! If the NOUN is NOT a liquid this message will be added to the above message.
+! Notes: (1) Creature will NOT be killed and will NOT disappear.
+!    (2) $o_indir$ is the OBJECT's indirect pronoun: "him", "her" or"it"
+STANDARD 51
+Unfortunately, the $noun$ merely bounces off and appears to make
+your target quite angry.
+END_STANDARD
+
+! If the NOUN is a liquid (i.e., drinkable) this message will be added.
+! Notes: (1) Creature will NOT be killed and will NOT disappear.
+!    (2) $o_indir$ is the OBJECT's indirect pronoun: "him", "her" or"it"
+!    (3) The Noun will disappear and its disappearance MUST be explained
+!      by the message -- some how.
+STANDARD 52
+The $noun$ splashes against the $object$ soaking $o_indir$ and clearly
+angering $o_indir$. Although the $noun$ evaporates quickly, the $object$
+doesn't seem to like you.
+END_STANDARD
+
+! The next few messages are used when throwing something at a FRIENDLY creature
+
+! Default THROW NOUN PREP OBJECT when OBJECT is a friendly creature
+! and NOUN being throw is the WEAPON that kills the creature
+! Notes: (1) Creature will be killed and will disappear. The message MUST
+!      explain this disappearance some how.
+!    (2) $o_pro$ is the object's direct pronoun, i.e., "he", "she" or"it"
+!    (3) $o_indir$ is the object's indirect pronoun, i.e., "him", "her" or
+!      "it"
+STANDARD 53
+The $noun$ soars through the air toward the $object$. It's a direct hit!
+The $object$ screeches and gives you a puzzled look, as if $o_pro$
+couldn't understand why you would want to hurt $o_indir$. $O_pro$ writhes in
+agony and fades away in a cloud of white smoke, but never seems even a bit
+angry; only confused, upset, and perhaps betrayed.
+END_STANDARD
+
+! Default THROW NOUN PREP OBJECT when OBJECT is a friendly creature
+! and NOUN being throw is the NOT WEAPON that kills the creature
+! NOUN is NOT a liquid (i.e., it is NOT drinkable)
+! Notes: (1) Creature will NOT be killed and NOT will disappear.
+!    (2) $o_pro$ is the object's direct pronoun, i.e., "he", "she" or"it"
+STANDARD 54
+The $noun$ soars through the air toward the $object$. It's a direct hit!
+The $object$ screeches and gives you a puzzled look, clearly confused by
+your actions. $O_pro$ retreats a few inches, watching you more carefully
+than before, but still doesn't seem hostile.
+END_STANDARD
+
+! This is the same situation as above except the NOUN being thrown is LIQUID
+! Default THROW NOUN PREP OBJECT when OBJECT is a friendly creature
+! and NOUN being throw is the NOT WEAPON that kills the creature
+! Notes: (1) Creature will NOT be killed and NOT will disappear.
+!    (2) $o_pro$ is the object's direct pronoun, i.e., "he", "she" or"it"
+!    (3) The NOUN is a liquid and will disappear. Its disappearence MUST
+!      be explained by the message.
+STANDARD 55
+The $noun$ soars through the air and splashes onto the $object$. The
+$object$ shakes off the $noun$, which evaporates quickly. $O_pro$ seems
+quite puzzled by your actions, but still doesn't seem hostile.
+END_STANDARD
+
+! Now we have messages for throwing a noun at another noun -- not a creature
+
+! Default THROW message when try to throw something at itself
+STANDARD 56
+Sorry, but it is impossible to $verb$ the $noun$ $prep$ itself!
+END_STANDARD
+
+! Throwing a liquid
+
+! Default THROW message when NOUN being thrown is a liquid (i.e., drinkable)
+! and OBJECT is NOT OPEN
+! Notes: (1) $o_indir$ is either "it" or "them" -- since it is inanimate.
+!    (2) The noun disappears which MUST be explained by the message.
+STANDARD 57
+The $noun$ soars through the air toward the $object$ and splashes against
+$o_indir$. For a moment, everything is soaked with $noun$, but the liquid
+quickly evaporates.
+END_STANDARD
+
+! This is the same as the above situation except the OBJECT is OPEN
+! Default THROW message when NOUN being thrown is a liquid (i.e., drinkable)
+! Notes: (1) $o_indir$ is either "it" or "them" -- since it is inanimate.
+!    (2) The noun disappears which MUST be explained by the message.
+STANDARD 58
+The $noun$ soars through the air toward the $object$ and sloshes into
+and around $o_indir$. For a moment, everything is soaked with $noun$, but
+the liquid quickly evaporates.
+END_STANDARD
+
+! Throwing a solid thing of some kind
+
+! Default THROW message when NOUN being thrown is NOT a liquid
+! and OBJECT is NOT OPEN
+! Notes: (1) $o_indir$ is either "it" or "them" -- since it is inanimate.
+!    (2) The noun does not disappear.
+STANDARD 59
+The $noun$ soars through the air toward the $object$ and lands with a
+"thud" next to $o_indir$.
+END_STANDARD
+
+! Same situation as above except OBJECT is OPEN and the NOUN lands inside it.
+! Notes: (1) $o_indir$ is either "it" or "them" -- since it is inanimate.
+!    (2) The noun does not disappear, but is inside the object.
+STANDARD 60
+The $noun$ soars through the air toward the $object$ and lands in the
+$o_indir$ with a "thunk."
+END_STANDARD
+
+!==============================================================================
+! PUT or PLACE messages
+!==============================================================================
+
+! Put or Place (noun, prep, object)
+! put something (in|into|inside|with|near|behind|beside|by|on|under) something
+! E.G., place book in box or put jewel with treasure
+
+! Default PUT message when the something i.e., the NOUN is UNMOVABLE
+STANDARD 61
+Sorry, but it is impossible to move the $noun$.
+END_STANDARD
+
+! Default PUT "error" message when try to PUT something PREP itself
+STANDARD 62
+Sorry, but it is impossible to $verb$ the $noun$ $prep$ itself!
+END_STANDARD
+
+! Default PUT something and NOUN isn't present at location
+STANDARD 63
+Sorry, but there $n_is$ no $noun$ here.
+END_STANDARD
+
+! PUTTING something IN or INSIDE something else
+
+! PUT "error" message when trying to PUT something in/inside OBJECT
+! and OBJECT isn't OPENABLE/CLOSABLE
+STANDARD 64
+It is impossible to $verb$ the $noun$ $prep$ the $object$.
+END_STANDARD
+
+! PUT "error" message when trying to PUT something in/inside OBJECT
+! and OBJECT is OPENABLE/CLOSABLE -- but happens to be CLOSED
+STANDARD 65
+The $object$ isn't open!
+END_STANDARD
+
+! PUT "error" message when trying to PUT something in/inside OBJECT
+! and NOUN wont fit inside OBJECT
+! WAS: The $noun$ won't fit $prep$ the $object$! --bb
+STANDARD 66
+There's no need to do that.
+END_STANDARD
+
+! PUT "success" message when trying to PUT something PREP OBJECT
+STANDARD 67
+You have put the $noun$ $prep$ the $object$.
+END_STANDARD
+
+! PUTTING something with|near|behind|beside|by|on|under something else
+
+! PUT "error" message when trying to PUT something PREP OBJECT
+! and OBJECT is being carried by player
+STANDARD 68
+Sorry, but you can't while you are carrying the $object$.
+END_STANDARD
+
+! PUT "error" message when trying to PUT something PREP OBJECT
+! and OBJECT is being worn by player
+STANDARD 69
+Sorry, but you can't while you are wearing the $object$.
+END_STANDARD
+
+! "Ultimate" PUT "error" message when it just can't happen
+STANDARD 70
+Sorry, I don't understand what you mean. You need to "$verb$" the
+"$noun$" some place.
+END_STANDARD
+
+!==============================================================================
+! OPEN messages
+!==============================================================================
+
+! Open noun prep object
+! i.e., open box or open chest with gold key
+
+! Trying to OPEN DOOR(S) in room
+
+! OPEN "error" message when there is NO (implied) locked door in room
+STANDARD 71
+Open what door? There isn't any closed door here!
+END_STANDARD
+
+! OPEN "error" message when is there is an (implied) locked door in room
+STANDARD 72
+You try your best, but the door won't open!
+END_STANDARD
+
+! OPEN ALL "error" message when is there is nothing OPENABLE in room
+STANDARD 73
+There is nothing here to open!
+END_STANDARD
+
+! OPEN "error" message when is there is a "bad" PREP
+STANDARD 74
+I'm not sure what you mean by that.
+END_STANDARD
+
+! Default OPEN something and NOUN isn't present at location
+STANDARD 75
+Sorry, but there $n_is$ no $noun$ here.
+END_STANDARD
+
+! Default OPEN NOUN PREP OBJECT when OBJECT isn't present at location
+STANDARD 76
+Sorry, but there $o_is$ no $object$ here.
+END_STANDARD
+
+! OPEN "error" message when trying to OPEN something
+! and the something isn't OPENABLE/CLOSABLE
+STANDARD 77
+There doesn't seem to be any way to open the $noun$.
+END_STANDARD
+
+! OPEN "error" message when trying to OPEN something
+! and the something is already OPEN
+STANDARD 78
+The $adjective$ $noun$ $n_is$ already open!
+END_STANDARD
+
+! OPEN "error" message when trying to OPEN something
+! and the something is LOCKED and there was no key specified
+STANDARD 79
+You need to unlock the $noun$, first!
+END_STANDARD
+
+! OPEN "error" message when trying to OPEN something
+! and the something is LOCKED and the wrong key is specified
+STANDARD 80
+You can't open the $noun$ with the $object$!
+END_STANDARD
+
+! OPEN "success" message when trying to OPEN something
+! and the something is LOCKED and the right key is specified
+STANDARD 81
+You have opened the $noun$ with the $object$.
+END_STANDARD
+
+! OPEN "success" message when trying to OPEN something
+! and the something is not LOCKED and is OPENABLE
+STANDARD 82
+The $adjective$ $noun$ $n_is$ now open.
+END_STANDARD
+
+!==============================================================================
+! CLOSE messages
+!==============================================================================
+
+! Close noun
+! e.g., close the box
+
+! CLOSE ALL "error" message when is there is nothing in the room to close
+STANDARD 83
+There is nothing here to close!
+END_STANDARD
+
+! Trying to CLOSE DOOR(S) in room
+
+! CLOSE "error" message when is there is an (implied) locked door in room
+STANDARD 84
+The door is already closed!
+END_STANDARD
+
+! CLOSE "error" message when there is NO (implied) locked door in room
+! However -- user may have defined a DOOR for the room
+STANDARD 85
+None of the doors here seem to be closable!
+END_STANDARD
+
+! Default CLOSE something and NOUN isn't present at location
+STANDARD 86
+The $adjective$ $noun$ $n_is$ not here.
+END_STANDARD
+
+! CLOSE "error" message when the NOUN is not CLOSEABLE
+STANDARD 87
+The $noun$ can't be closed!
+END_STANDARD
+
+! CLOSE "error" message when the NOUN is not OPEN
+STANDARD 88
+The $noun$ isn't open!
+END_STANDARD
+
+! CLOSE "success" message when trying to CLOSE something
+! and the something is OPEN and is CLOSABLE
+STANDARD 89
+The $adjective$ $noun$ $n_is$ now closed.
+END_STANDARD
+
+!==============================================================================
+! ATTACK FIGHT KILL SHOOT messages
+!==============================================================================
+
+! Attack (noun,prep,object)
+! general messages for attack, fight, kill and shoot
+! e.g., attack hobbit, kill troll with axe, shoot guard with laser
+
+! ATTACK "error" message -- if attacking a NOUN, i.e., an inanimate thing
+STANDARD 90
+It would really make more sense to specify some living thing to $verb$.
+Hostility really requires a target of some sort.
+END_STANDARD
+
+! ATTACK "success" message -- if attacking a HOSTILE creature
+! without a specific weapon, i.e., "using bare hands"
+STANDARD 91
+You grab the $noun$ with your bare hands and attempt to strangle $n_indir$.
+$N_pro$ slips easily from your grasp and snarls at you, preparing to respond
+with an attack. You leap out of way just in time.
+
+END_STANDARD
+
+! ATTACK "success" message -- if attacking a FRIENDLY creature
+! without a specific weapon, i.e., "using bare hands"
+STANDARD 92
+You grab the $noun$ with your bare hands and attempt to strangle $n_indir$.
+$N_pro$ writhes in your fingers and slip free, scratching you in the process.
+$N_pro$ crawls away from you, gasping for breath. The $noun$ seems
+puzzled and confused by your actions, and seems upset, but not hostile.
+END_STANDARD
+
+! SHOOT specific messages
+
+! Shoot noun prep object
+! The following messages are also used with attack, fight, and kill verbs
+! whenever the weapon being used is defined as CAN_SHOOT.
+! e.g., kill troll with laser or shoot laser at troll
+
+! SHOOT "error" message -- when trying to shoot/attack/kill an inanimate object
+STANDARD 93
+It would really make more sense to specify some living creature. Hostility
+really requires a target of some sort.
+END_STANDARD
+
+! SHOOT "error" message -- when trying to shoot a creature
+! but no weapon has been specified
+STANDARD 94
+You need to specify what you want to use to shoot at the $noun$!
+END_STANDARD
+
+! SHOOT "error" message -- when trying to shoot/attack/kill a creature
+! but OBJECT specified is not really a weapon
+STANDARD 95
+Using the $object$ to kill the $noun$ doesn't make much sense!
+END_STANDARD
+
+! SHOOT "error" message -- when trying to shoot a creature
+! but OBJECT specified as the weapon can NOT shoot
+STANDARD 96
+You can't seem to get the $object$ to shoot!
+END_STANDARD
+
+! SHOOT "error" message -- when trying to shoot a creature
+! but OBJECT specified as the weapon can shoot -- but is out of "bullets"
+STANDARD 97
+The $object$ seems to be empty!
+END_STANDARD
+
+! SHOOT "success" message -- when trying to shoot a creature
+! but player has to pick up weapon from somewhere in room first
+STANDARD 98
+You reach down to get the $object$. You fumble and almost drop it.
+END_STANDARD
+
+! HOSTILE creature messages
+
+! SHOOT "success" message -- when trying to shoot a HOSTILE creature
+! and weapon is the one that kills the creature
+! NOTE: Creature will disappear -- message MUST explain how
+STANDARD 99
+You aim the $object$ at the $noun$ and pull the trigger. It's a direct
+hit! The $noun$ screeches angrily, and writhes in agony and fades away
+in a cloud of green smoke.
+END_STANDARD
+
+! SHOOT "success" message -- when trying to shoot a HOSTILE creature
+! But weapon is NOT the one that kills the creature
+! NOTE: Creature will NOT disappear
+STANDARD 100
+You aim the $object$ at the $noun$ and pull the trigger. It's a direct
+hit! The $noun$ screeches angrily, and writhes in agony and falls to the
+floor for a moment. Then the $n_pro$ leaps up and eyes you quite angrily.
+Though wounded, $n_pro$ seems no less dangerous or hostile.
+END_STANDARD
+
+! FRIENDLY creature messages
+
+! SHOOT "success" message -- when trying to shoot a FRIENDLY creature
+! and weapon is the one that kills the creature
+! NOTE: Creature will disappear -- message MUST explain how
+STANDARD 101
+You aim the $object$ at the $noun$ and pull the trigger. It's a direct
+hit! The $noun$ screeches and gives you a puzzled look as if $n_pro$
+couldn't understand why you would want to hurt $n_indir$. $N_pro$ writhes
+in agony and fades away in a cloud of white smoke, but never seems even a
+bit angry; only confused, upset, and perhaps betrayed.
+END_STANDARD
+
+! SHOOT "success" message -- when trying to shoot a FRIENDLY creature
+! and weapon is NOT the one that kills the creature
+! NOTE: Creature will NOT disappear
+STANDARD 102
+You aim the $object$ at the $noun$ and pull the trigger. It's a direct
+hit! The $noun$ is knocked back by the force of the shot, and screeches
+as $n_pro$ falls to the floor. After a moment, $n_pro$ rises, wounded and
+confused by your unexpected actions. $N_pro$ retreats a few inches, watching
+you more carefully than before, but still doesn't seem hostile.
+END_STANDARD
+
+!==============================================================================
+! UNLOCK messages
+!==============================================================================
+
+! Unlock noun prep object
+! e.g., unlock box with key, or unlock door
+
+! UNLOCK ALL "error" message when is there is nothing "UNLOCKABLE" in room
+STANDARD 103
+There is nothing here to unlock!
+END_STANDARD
+
+! Trying to UNLOCK DOOR(S) in room
+
+! UNLOCK DOOR "error" message when is there is an (implied) locked door in room
+STANDARD 104
+Nice try, but you can't seem to unlock the door.
+END_STANDARD
+
+! UNLOCK DOOR "error" message when there is NO (implied) locked door in room
+! but there may be a user defined DOOR
+STANDARD 105
+All the doors here are already open!
+END_STANDARD
+
+! UNLOCK "error" message when is there is a "bad" PREP
+STANDARD 106
+What a strange request! I really can't figure out what you mean by that.
+Perhaps, you need to specify a tool to unlock the $noun$ with.
+END_STANDARD
+
+! Default UNLOCK NOUN PREP OBJECT when OBJECT isn't being carried
+STANDARD 107
+Sorry, but you aren't carrying the $object$!
+END_STANDARD
+
+! UNLOCK "error" message when trying to UNLOCK something
+! and the something isn't "UNLOCKABLE"
+STANDARD 108
+The $noun$ can't be locked or unlocked!
+END_STANDARD
+
+! UNLOCK "error" message when trying to UNLOCK something
+! and the something is already UNLOCK
+STANDARD 109
+The $adjective$ $noun$ $n_is$ already unlocked!
+END_STANDARD
+
+! UNLOCK "error" message when trying to UNLOCK something
+! and the something is already UNLOCK -- and is actually OPEN
+STANDARD 110
+The $noun$ is open. Why unlock it?
+END_STANDARD
+
+! UNLOCK "error" message when trying to UNLOCK something
+! and player is trying to use the wrong KEY
+STANDARD 111
+You can't seem to unlock the $noun$ with the $object$.
+END_STANDARD
+
+! UNLOCK "success" message when trying to UNLOCK something
+! and player is using the correct KEY
+STANDARD 112
+You unlock the $noun$ using the $object$.
+END_STANDARD
+
+!==============================================================================
+! LOCK messages
+!==============================================================================
+
+! lock noun prep object
+! e.g., lock box with brass key or lock the door
+
+! LOCK ALL "error" message when is there is nothing "LOCKABLE" in room
+STANDARD 113
+There is nothing here to lock!
+END_STANDARD
+
+! Trying to LOCK DOOR(S) in room
+
+! LOCK DOOR "error" message when is there is an (implied) locked door in room
+STANDARD 114
+The door is already locked.
+END_STANDARD
+
+! LOCK DOOR "error" message when there is NO (implied) locked door in room
+! but there may be a user defined DOOR
+STANDARD 115
+You can't lock these doors!
+END_STANDARD
+
+! LOCK "error" message when is there is a "bad" PREP
+STANDARD 116
+What a strange request! I really can't figure out what you mean by that.
+Perhaps, you need to specify a tool to lock the $noun$ with.
+END_STANDARD
+
+! Default LOCK NOUN PREP OBJECT when OBJECT isn't being carried
+STANDARD 117
+Sorry, but you aren't carrying the $object$!
+END_STANDARD
+
+! LOCK "error" message when trying to LOCK something
+! and the something isn't "LOCKABLE"
+STANDARD 118
+The $noun$ can't be locked or unlocked!
+END_STANDARD
+
+! LOCK "error" message when trying to LOCK something
+! and the something is already locked
+STANDARD 119
+The $adjective$ $noun$ is already locked!
+END_STANDARD
+
+! LOCK "error" message when trying to LOCK something
+! and the something is OPEN
+STANDARD 120
+The $noun$ has to be closed before you can lock it!
+END_STANDARD
+
+! LOCK "error" message when trying to LOCK something
+! and player is trying to use the wrong KEY
+STANDARD 121
+You can't seem to lock the $noun$ with the $object$.
+END_STANDARD
+
+! LOCK "success" message when trying to LOCK something
+! and player is using the correct KEY
+STANDARD 122
+You lock the $noun$ securely using the $object$.
+END_STANDARD
+
+!==============================================================================
+! EAT and DRINK messages
+!==============================================================================
+
+! Eat noun
+! e.g., eat the apple pie or eat all of the food
+
+! EAT ALL "error" message when is there is nothing EDIBLE in room
+STANDARD 123
+There is nothing here to eat!
+END_STANDARD
+
+! EAT "error" message when trying to EAT something
+! and the something isn't EDIBLE
+STANDARD 124
+Eat the $noun$? You must be kidding!
+END_STANDARD
+
+! Drink noun
+! e.g., drink the red wine, or drink all of the water
+
+! DRINK ALL "error" message when is there is nothing DRINKABLE in room
+STANDARD 125
+There is nothing here to drink!
+END_STANDARD
+
+! Default DRINK something and NOUN isn't present at location
+STANDARD 126
+Sorry, but there $n_is$ no $noun$ here to drink.
+END_STANDARD
+
+! DRINK "error" message when trying to DRINK something
+! and the something isn't DRINKABLE
+STANDARD 127
+You must be joking about drinking the $noun$!
+END_STANDARD
+
+! EAT or DRINK and checks for poison
+
+! Note: Food or Drink will disappear if it is movable. This allows the player
+!    to drink from lake without having the water disappear (if and only
+!    if the lake had been specified as unmovable.)
+
+! Default "success" message for Eating or Drinking (i.e., consuming) something.
+
+STANDARD 128
+The $noun$ slides down your throat, and your stomach quickly is full.
+END_STANDARD
+
+! Default message for Eating or Drinking something poisonous.
+! Note: Player will die if he/she consumes something poisonous
+
+STANDARD 129
+After only a moment, you begin to sense a bitter taste, and your vision blurs.
+In only seconds, you slip to your knees and your throat closes. You gasp
+unsuccessfully for air.
+END_STANDARD
+
+!==============================================================================
+! INVENTORY messages
+!==============================================================================
+
+! i.e., displays items being carried and items being worn (if any)
+
+! Default INVENTORY "preface" -- for items being carried
+STANDARD 130
+You are carrying:
+END_STANDARD
+
+! Default INVENTORY "response" -- if nothing is being carried
+STANDARD 131
+You aren't carrying anything.
+END_STANDARD
+
+! Default INVENTORY "preface" -- for items being worn (if any)
+STANDARD 132
+You are wearing:
+END_STANDARD
+
+!==============================================================================
+! READ messages
+!==============================================================================
+
+! Read noun
+! e.g., read the scroll or read the cereal box
+
+! Default READ something and NOUN isn't present at location
+STANDARD 133
+Sorry, but the $noun$ $n_is$ not here -- which makes $n_indir$ difficult to
+read!
+END_STANDARD
+
+! READ "error" message when trying to READ something
+! and the something isn't READABLE
+STANDARD 134
+It is somewhat difficult to read the $noun$. So let me try to describe
+$n_indir$ instead.
+
+END_STANDARD
+
+!==============================================================================
+! LIGHT or TURN ON messages
+!==============================================================================
+
+! Light noun
+! e.g., turn on the flashlight or light the fire
+
+! LIGHT "error" message when trying to LIGHT something
+! and the something isn't defined as "IS_LIGHT"
+STANDARD 135
+Sorry, I don't know how to do that with the $noun$.
+END_STANDARD
+
+! LIGHT "error" message when trying to LIGHT something
+! and the something is defined as "IS_LIGHT"
+! but it is already "LIT"
+STANDARD 136
+The $noun$ $n_is$ already lit!
+END_STANDARD
+
+! SAME "error" condition as above -- except VERB is TURN ON rather than LIGHT
+! TURN ON "error" message when trying to TURN ON something
+! and the something is defined as "IS_LIGHT"
+! but it is already "LIT"
+STANDARD 137
+The $noun$ $n_is$ already on!
+END_STANDARD
+
+! LIGHT "success" message when trying to LIGHT something
+! and the something is defined as "IS_LIGHT" and it isn't ON yet
+STANDARD 138
+The $noun$ $n_is$ now lit!
+END_STANDARD
+
+! SAME "success" condition as above -- except VERB is TURN ON rather than LIGHT
+! TURN ON "success" message when trying to TURN ON something
+! and the something is defined as "IS_LIGHT" and it isn't ON yet
+STANDARD 139
+The $noun$ $n_is$ now on!
+END_STANDARD
+
+!==============================================================================
+! EXTINGUISH or TURN OFF messages
+!==============================================================================
+
+! Extinguish noun
+! e.g., turn off the flashlight or extinguish the fire
+
+! EXTINGUISH "error" message when trying to EXTINGUISH something
+! and the something isn't defined as "IS_LIGHT"
+STANDARD 140
+Sorry, I don't know how to do that with the $noun$.
+END_STANDARD
+
+! EXTINGUISH "error" message when trying to EXTINGUISH something
+! and the something is defined as "IS_LIGHT"
+! but it is already NOT "LIT"
+STANDARD 141
+The $noun$ $n_is$ not even lit!
+END_STANDARD
+
+! SAME "error" condition as above -- except VERB is TURN OFF
+! TURN OFF "error" message when trying to TURN OFF something
+! and the something is defined as "IS_LIGHT"
+! but it is already NOT "LIT"
+STANDARD 142
+The $noun$ $n_is$ not even on!
+END_STANDARD
+
+! EXTINGUISH "success" message when trying to EXTINGUISH something
+! and the something is defined as "IS_LIGHT"
+STANDARD 143
+The $noun$ $n_is$ now extinguished!
+END_STANDARD
+
+! SAME "success" condition as above -- except VERB is TURN OFF
+! TURN OFF "success" message when trying to TURN OFF something
+! and the something is defined as "IS_LIGHT"
+STANDARD 144
+The $noun$ $n_is$ now off!
+END_STANDARD
+
+!==============================================================================
+! QUIT messages
+!==============================================================================
+
+! e.g., quit the game
+
+! Default QUIT query
+! AGT will append a message "Please respond with YES or NO..."
+STANDARD 145
+Are you sure you want to quit?
+END_STANDARD
+
+! Default QUIT response -- if Player answers YES to above query
+STANDARD 146
+
+OK.
+
+END_STANDARD
+
+!==============================================================================
+! SCORE messages
+!==============================================================================
+
+! e.g., display the score
+
+! Default message given during SCORE report -- if player is DEAD
+STANDARD 147
+
+*** You are dead. ***
+
+END_STANDARD
+
+! Default message given during SCORE report -- if player has won game
+STANDARD 148
+
+*** Congratulations. You have won the game. ***
+
+END_STANDARD
+
+!==============================================================================
+! WAIT messages
+!==============================================================================
+
+! Default WAIT message
+STANDARD 149
+Time passes ...
+END_STANDARD
+
+!==============================================================================
+! SCREAM messages
+!==============================================================================
+
+! Default SCREAM message
+STANDARD 150
+
+YYYYAAAAAAAUUUUUUGGGGGGGHHHHHHH YAI YAI YOW! AAAAUUUUGGGHHHH!!
+
+Your voice echoes loudly through the area, and the volume of your shriek
+causes the very ground to vibrate. You feel much better having let out some
+steam, but nothing else has changed.
+
+END_STANDARD
+
+!==============================================================================
+! RESURRECT messages
+!==============================================================================
+
+! i.e., Give player another chance after moving him back to the starting room
+
+! Default "resurrect" message -- give the 1st time the player dies
+! NOTE: This message MUST end with a YES or NO question
+! AGT will append a message "Please respond with YES or NO..."
+STANDARD 151
+Oh dear, you seem to have gotten yourself killed.
+
+Would you like me to try to get you resurrected?
+END_STANDARD
+
+! Default "resurrect" message -- give the 2nd time and later times the player
+! dies -- but not the "last" permissable time, i.e., not MAX_LIVES
+! NOTE: This message MUST end with a YES or NO question
+! AGT will append a message "Please respond with YES or NO..."
+STANDARD 152
+Oh you clumsy oaf, you've gone and done it again! I don't know how long I can
+keep patching you up ...
+
+Would you like me to try to get you resurrected again?
+END_STANDARD
+
+! Default "resurrect" message -- give the "last" permissable time the player
+! dies -- i.e., death = MAX_LIVES
+! NOTE: This message does not end with a YES or NO question
+STANDARD 153
+I'm all out of orange smoke, and you've used all of your available lives.
+Better luck next time!
+END_STANDARD
+
+! Default "resurrect response" -- give after player answers YES to question
+! about wanting to be resurrected
+STANDARD 154
+I'll try ... but don't blame me if something goes wr@#%&&
+
+         ---- POOF----
+
+You are engulfed in a cloud of thick orange smoke, and you emerge coughing and
+gasping, and find that you must start all over ...
+
+END_STANDARD
+
+!==============================================================================
+! TALK or TELL messages
+!==============================================================================
+
+! e.g., TELL MAN ABOUT SWORD, TALK TO PRINCESS,
+! or TALK WITH JEFF ABOUT SCHOOL WORK
+
+! TALK ALL "error" message if TALK ALL or TELL ALL
+STANDARD 155
+You can only talk with one person at a time about one subject at a time!
+END_STANDARD
+
+! TALK "error" message if trying to talk to a NOUN, i.e., talking to inanimate
+! object
+STANDARD 156
+Talking with the $noun$ is kind of silly, since the $noun$ can't
+talk back!
+END_STANDARD
+
+! TALK "success" message if trying to talk to a creature that is a THING
+! i.e., talking to a beast of some kind
+STANDARD 157
+The $noun$ just listens to you, but remains strangely silent.
+END_STANDARD
+
+! TALK "success" message if trying to talk to a creature that is a MAN or WOMAN
+! TALKing about a specific OBJECT
+STANDARD 158
+You spend a few minutes in pleasant conversation with the $noun$ chatting
+about the $object$. However, you don't learn anything that you didn't
+already know.
+END_STANDARD
+
+! TALK "success" message if trying to talk to a creature that is a MAN or WOMAN
+! NOT TALKing about a specific OBJECT
+STANDARD 159
+You spend a few minutes in pleasant conversation with the $noun$.
+However, you don't learn anything that you didn't already know.
+END_STANDARD
+
+!==============================================================================
+! ASK messages
+!==============================================================================
+
+! e.g., ASK MAN ABOUT SWORD, or ASK JEFF ABOUT SCHOOL WORK
+
+! ASK ALL "error" message
+STANDARD 160
+You can only talk with one person at a time about one subject at a time!
+END_STANDARD
+
+! ASK "error" message if trying to ask a NOUN, i.e., talking to inanimate
+! object
+STANDARD 161
+Asking the $noun$ questions is kind of silly, since the $noun$ can't
+answer back!
+END_STANDARD
+
+! ASK "error" message if not trying to ask about a specific OBJECT
+STANDARD 162
+You must ask the $noun$ ABOUT something!
+END_STANDARD
+
+! ASK "success" message if trying to ask about a specific OBJECT
+STANDARD 163
+The $noun$ tells you all about the $object$, but the $noun$ isn't
+exactly a fountain of knowledge and you don't learn anything that you
+didn't already know.
+END_STANDARD
+
+!==============================================================================
+! TURN messages
+!==============================================================================
+
+! Turn noun prep object
+! e.g., turn on light, turn handle, turn rock over with rod
+
+! TURN "error" message -- if NOUN is a creature
+STANDARD 164
+I don't know how to turn the $noun$.
+END_STANDARD
+
+! TURN "error" message -- if NOUN is TURNABLE
+! But there is no TURN description for this NOUN in the .DAT file
+STANDARD 165
+Turning the $noun$ doesn't seem to accomplish anything.
+END_STANDARD
+
+! TURN "error" message -- if NOUN is NOT TURNABLE
+STANDARD 166
+You can't seem to turn the $noun$.
+END_STANDARD
+
+!==============================================================================
+! PUSH messages
+!==============================================================================
+
+! Push noun prep object
+! e.g., push button, push troll with rod
+
+! PUSH "error" message -- if NOUN is a HOSTILE creature
+! and creature is a THING (not a man or woman)
+STANDARD 167
+The $noun$ growls and snaps at your hand as you reach toward it.
+END_STANDARD
+
+! Same as above -- except creature is NOT HOSTILE
+! and creature is a THING (not a man or woman)
+STANDARD 168
+The $noun$ makes a pleasant sound as you pat it gently on the head.
+END_STANDARD
+
+! PUSH "error" message -- if NOUN is a HOSTILE creature
+! and creature is a man or woman
+! $n_indir$ will be "him" or "her" -- as appropriate
+STANDARD 169
+The $noun$ scowls and pushes your hand away as you reach toward $n_indir$.
+END_STANDARD
+
+! Same as above -- except creature is NOT HOSTILE
+! and creature is a man or woman
+! $n_indir$ will be "him" or "her" -- as appropriate
+STANDARD 170
+The $noun$ smiles as your hand touches $n_indir$.
+END_STANDARD
+
+! PUSH "error" message -- if NOUN is PUSHABLE
+! But there is no PUSH description for this NOUN in the .DAT file
+STANDARD 171
+Nothing happens when you push the $noun$.
+END_STANDARD
+
+! PUSH "error" message -- if NOUN is NOT PUSHABLE
+STANDARD 172
+Nothing happens when you push the $noun$.
+END_STANDARD
+
+!==============================================================================
+! PULL messages
+!==============================================================================
+
+! Pull noun prep object
+! e.g., pull rope, pull princess
+
+! PULL "error" message -- if NOUN is a creature
+STANDARD 173
+Pulling the $noun$ doesn't seem possible.
+END_STANDARD
+
+! PULL "error" message -- if NOUN is PULLABLE
+! But there is no PULL description for this NOUN in the .DAT file
+STANDARD 174
+Pulling the $noun$ doesn't seem to affect the $noun$ any.
+END_STANDARD
+
+! PULL "error" message -- if NOUN is NOT PULLABLE
+STANDARD 175
+Pulling on the $noun$ doesn't seem to work.
+END_STANDARD
+
+!==============================================================================
+! PLAY messages
+!==============================================================================
+
+! Play noun
+! e.g., play radio, play baseball, play with dog
+
+! PLAY "error" message -- if NOUN is a creature
+STANDARD 176
+Playing with the $noun$ doesn't make much sense!
+END_STANDARD
+
+! PLAY "error" message -- if NOUN is PLAYABLE
+! But there is no PLAY description for this NOUN in the .DAT file
+STANDARD 177
+You play with the $noun$ for a while. Nothing significant happens.
+END_STANDARD
+
+! PLAY "error" message -- if NOUN is NOT PLAYABLE
+STANDARD 178
+You play with the $noun$ for a while. Nothing significant happens.
+END_STANDARD
+
+!==============================================================================
+! "CHANGE LOCATIONS" messages
+!==============================================================================
+
+! e.g., GO TO CAVE, CLIMB ROPE, SHOW ID BADGE TO SECURITY GUARD
+! Typical use: Define either a Global or Room synonym
+! as: Change_Locations CLIMB
+! Then whenever player inputs 'CLIMB HILL' and
+! ( where HILL is a KEY noun in that room)
+! and Room.Special exists and KEY = # for HILL
+! Then SPECIAL will be executed normally
+
+! Change_Locations "error" message -- if NOUN is not visible
+STANDARD 179
+I see no $noun$ here.
+END_STANDARD
+
+! Change_Locations "error" message -- if NOUN is a creature
+STANDARD 180
+To "$verb$" the $noun$ doesn't make much sense!
+END_STANDARD
+
+! Change_Location "error" message -- if NOUN is not defined as KEY to SPECIAL
+STANDARD 181
+You $verb$ with the $noun$ for a while. Nothing significant happens.
+END_STANDARD
+
+!==============================================================================
+! "MAGIC WORD" messages
+!==============================================================================
+
+! e.g., XYZZY, PLUGH ,etc.
+! Typical use: Define either a Global or Room synonym
+! as: MAGIC_WORD xyzzy
+! Then whenever player inputs 'xyzzy' and
+! that is the operable magic word in that room)
+! and Room.Special exits and KEY = 0 (must be 0)
+! Then SPECIAL will be executed normally
+
+! Magic_Word "error" message
+! if word is NOT the right word to activate the current ROOM's SPECIAL (if any)
+STANDARD 182
+"$Verb$" is a great word, but it doesn't seems to have any effect here.
+END_STANDARD
+
+!==============================================================================
+! "Miscellenaous" messages
+!==============================================================================
+
+! Some "default" "error" messages for "strange" user commands
+
+! Message given when DOOR or DOORS is the OBJECT of the command (which should
+! never happen!)
+STANDARD 183
+To $verb$ the $noun$ $prep$ the $object$ suddenly seems rather
+useless, so you decide not to after all.
+END_STANDARD
+
+! Message given when player's command requires a NOUN and none is given
+! i.e., GET {no noun}
+STANDARD 184
+You need to specify a noun!
+END_STANDARD
+
+! Message given when player's command uses a "non-standard" verb and it was
+! NOT handled by a meta-command -- so AGT will give the following "default"
+STANDARD 185
+Sorry, you can't do that ...
+END_STANDARD
+
+
