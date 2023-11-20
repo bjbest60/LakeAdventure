@@ -1,5 +1,5 @@
 # LakeAdventure
-AGT files for LAKE Adventure, entered in IFComp '23
+AGT files for LAKE Adventure, 2nd place, <a href="https://ifcomp.org/comp/2023">2023 Interative Fiction Competition</a>
 
 These files are provided for those interested in seeing the code for a modern-day game written in <a href="https://www.ifarchive.org/indexes/if-archive/programming/agt/">AGT</a> (Adventure Game Toolkit).  The files are compatible with AGT Master's Edition 1.6.  I did the coding in VS Code, frequently using DOSBox to compile and verify the latest changes.
 
